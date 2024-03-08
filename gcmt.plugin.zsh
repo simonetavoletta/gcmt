@@ -90,3 +90,23 @@ function gcmt() {
     git commit -m "$BRANCH_TYPE: $MESSAGE" ${@:2}
   fi
 }
+
+
+
+# Function to print alias suggestions when entering a Git repository
+git_alias_suggestions() {
+    echo "Git repo! Remember, remember..."
+    echo "  feat   - Commit a new feature"
+    echo "  fix    - Fix a bug"
+    echo "  ref    - Refactor code"
+    echo "  style  - Make stylistic changes"
+    echo "  docs   - Update documentation"
+    echo "  test   - Write or update tests"
+    echo "  chore  - Perform maintenance tasks"
+    echo ""
+}
+
+# Function to be called when navigating into git repo
+if [ -d ".git" ]; then
+    git_alias_suggestions
+fi
