@@ -14,22 +14,12 @@ function gcmt() {
     done
   }
 
-  get_ticket() {
-    if [[ $2 =~ $1 ]]; then
-      echo $match[1]
-    fi
-  }
-
   print_missing_message() {
     printf "\e[31mMissing commit message\e[0m\n"
   }
 
   print_invalid_type_shortcut() {
     printf "\e[31mUnsupported type shortcut: $1\e[0m\n"
-  }
-
-  print_unknown_ticket() {
-    printf "\e[31mCan't extract ticket from $1 branch\e[0m\n"
   }
 
   print_shortcuts() {
@@ -53,7 +43,6 @@ function gcmt() {
 
   BRANCH=$(gb "--show-current")
   BRANCH_TYPE_SEPARATOR="/"
-  RE_BRANCH_TICKET="(^[A-Z]+\-[0-9]+)"
   IFS=$BRANCH_TYPE_SEPARATOR read BRANCH_TYPE BRANCH_REFERENCE <<<$BRANCH
 
   MESSAGE=$1
@@ -77,8 +66,6 @@ function gcmt() {
     "t: #getOwnAccount()"
   )
 
-  TICKET=$(get_ticket $RE_BRANCH_TICKET $BRANCH_REFERENCE)
-
   if [ ! -n "$MESSAGE" ]; then
     print_missing_message
     $COMMAND "--help"
@@ -89,20 +76,17 @@ function gcmt() {
     printf "\n"
     print_shortcuts $BRANCH_TYPE_SEPARATOR ${TYPES[@]}
 
-  elif [ ! -n "$TICKET" ]; then
-    print_unknown_ticket $BRANCH_REFERENCE
-
   elif [[ $MESSAGE =~ $RE_MESSAGE_TYPE ]]; then
     TARGET_TYPE=$(find_type $BRANCH_TYPE_SEPARATOR $MESSAGE_TYPE ${TYPES[@]})
 
     if [ -n "${TARGET_TYPE}" ]; then
-      git commit -m "$TARGET_TYPE: $TICKET $MESSAGE_TEXT" ${@:2}
+      git commit -m "$TARGET_TYPE: $MESSAGE_TEXT" ${@:2}
     else
       print_invalid_type_shortcut $MESSAGE_TYPE
       $COMMAND "--help"
     fi
 
   else
-    git commit -m "$BRANCH_TYPE: $TICKET $MESSAGE" ${@:2}
+    git commit -m "$BRANCH_TYPE: $MESSAGE" ${@:2}
   fi
 }
