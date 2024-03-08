@@ -92,6 +92,36 @@ function gcmt() {
 }
 
 
+# Function to handle feat, fix, ref, style, docs, test, and chore aliases
+git_commit() {
+    case "$1" in
+        "feat") prefix="f:" ;;
+        "fix") prefix="b:" ;;
+        "ref") prefix="r:" ;;
+        "style") prefix="s:" ;;
+        "docs") prefix="d:" ;;
+        "test") prefix="t:" ;;
+        "chore") prefix="c:" ;;
+        *) prefix="";;
+    esac
+
+    # Shift the arguments to remove the alias name
+    shift
+
+    # Call gcmt with the appropriate prefix and message
+    gcmt "$prefix $*"
+}
+
+# Define aliases for feat, fix, ref, style, docs, test, and chore
+alias feat='git_commit feat'  
+alias fix='git_commit fix'
+alias ref='git_commit ref'
+alias style='git_commit style'
+alias docs='git_commit docs'
+alias test='git_commit test'
+alias chore='git_commit chore'
+
+
 
 # Function to print alias suggestions when entering a Git repository
 git_alias_suggestions() {
