@@ -96,7 +96,7 @@ function gcmt() {
     TARGET_TYPE=$(find_type $BRANCH_TYPE_SEPARATOR $MESSAGE_TYPE ${TYPES[@]})
 
     if [ -n "${TARGET_TYPE}" ]; then
-      git commit -m "$TARGET_TYPE[$TICKET]: $MESSAGE_TEXT" ${@:2}
+      git commit -m "[$TICKET] $TARGET_TYPE: $MESSAGE_TEXT" ${@:2}
     else
       print_invalid_type_shortcut $MESSAGE_TYPE
       $COMMAND "--help"
