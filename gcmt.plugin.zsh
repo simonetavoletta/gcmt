@@ -28,6 +28,10 @@ function gcmt() {
     printf "\e[31mUnsupported type shortcut: $1\e[0m\n"
   }
 
+  print_unknown_ticket() {
+    printf "\e[31mCan't extract ticket from $1 branch\e[0m\n"
+  }
+
   print_shortcuts() {
     printf "The following type shortcuts are available:\n"
     for reference in "${@:2}"; do
@@ -92,7 +96,7 @@ function gcmt() {
     TARGET_TYPE=$(find_type $BRANCH_TYPE_SEPARATOR $MESSAGE_TYPE ${TYPES[@]})
 
     if [ -n "${TARGET_TYPE}" ]; then
-      git commit -m "$TARGET_TYPE: $MESSAGE_TEXT" ${@:2}
+      git commit -m "$TARGET_TYPE: $TICKET $MESSAGE_TEXT" ${@:2}
     else
       print_invalid_type_shortcut $MESSAGE_TYPE
       $COMMAND "--help"
