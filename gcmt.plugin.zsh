@@ -103,7 +103,7 @@ function gcmt() {
     fi
 
   else
-    git commit -m "$BRANCH_TYPE: $TICKET $MESSAGE" ${@:2}
+    git commit -m "$BRANCH_TYPE[$TICKET]: $MESSAGE" ${@:2}
   fi
 }
 
