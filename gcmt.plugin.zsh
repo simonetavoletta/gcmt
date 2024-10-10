@@ -153,6 +153,6 @@ git_alias_suggestions() {
 }
 
 # Function to be called when navigating into git repo
-if [ -d ".git" ]; then
-    git_alias_suggestions
-fi
+#if [ -d ".git" ]; then
+#    git_alias_suggestions
+#fi
