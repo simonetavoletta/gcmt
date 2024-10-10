@@ -116,7 +116,7 @@ git_commit() {
         "ref") prefix="r:" ;;
         "style") prefix="s:" ;;
         "docs") prefix="d:" ;;
-        "test") prefix="t:" ;;
+        "tests") prefix="t:" ;;
         "chore") prefix="c:" ;;
         *) prefix="";;
     esac
@@ -147,7 +147,7 @@ git_alias_suggestions() {
     echo "  ref    - Refactor code"
     echo "  style  - Make stylistic changes"
     echo "  docs   - Update documentation"
-    echo "  test   - Write or update tests"
+    echo "  tests   - Write or update tests"
     echo "  chore  - Perform maintenance tasks"
     echo ""
 }
