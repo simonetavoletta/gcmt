@@ -134,7 +134,7 @@ alias fix='git_commit fix'
 alias ref='git_commit ref'
 alias style='git_commit style'
 alias docs='git_commit docs'
-alias test='git_commit test'
+alias tests='git_commit test'
 alias chore='git_commit chore'
 
 
